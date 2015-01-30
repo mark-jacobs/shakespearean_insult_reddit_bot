@@ -3,7 +3,7 @@ require './shakespearean_insult'
 
 class RunBot
   def initialize
-    si = ShakespeareanInsult.new
+    si = ShakespeareanInsult.new 
     run_bot(si)
     sleep(2)
   end
@@ -20,12 +20,14 @@ class RunBot
     while true
       # sign in client
       begin
-        client = sign_in
+        client ||= sign_in 
         sleep(2)
+        puts "checking messages: #{Time.now}"
         process_messages(client, shakespeare)
-        sleep(2)
-      rescue RedditKit::ServiceUnavailable
-        puts "oops!"
+        sleep(30)
+        #maybe add a bot to reply to the totes meta bot or whatever it is now called and insult it.
+      rescue => e
+        puts e
       end
     end
   end
